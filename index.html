@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cafetería Arábica - Menú Digital</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <header class="top-nav-bar">
+        <div class="nav-logo" onclick="navegarA('inicio')">Cafetería Arábica</div>
+        
+        <div class="location-box">
+            <span>📍 Ciudad:</span>
+            <select id="selectCiudadFiltro" class="city-selector" onchange="actualizarColonias()">
+                <option value="El Progreso">El Progreso</option>
+                <option value="San Pedro Sula">San Pedro Sula</option>
+            </select>
+        </div>
+
+        <nav class="nav-links-right">
+            <a href="javascript:void(0)" onclick="navegarA('inicio')">Inicio</a>
+            <a href="javascript:void(0)" onclick="navegarA('desayunos')" class="nav-btn-highlight">Desayunos</a>
+            <a href="javascript:void(0)" onclick="navegarA('cafes')">Cafés</a>
+            <a href="javascript:void(0)" onclick="navegarA('bebidas')">Bebidas</a>
+            <a href="javascript:void(0)" onclick="navegarA('postres')">Postres</a>
+            <a href="javascript:void(0)" onclick="navegarA('ofertas')" class="nav-btn-offers">🏷️ Ofertas</a>
+            <button class="cart-trigger-btn" onclick="abrirModalCompra()">🛒 Carrito (<span id="cartCount">0</span>)</button>
+            <button class="admin-btn" onclick="pedirAccesoHistorial()">🔒 Acceso Historial</button>
+        </nav>
+    </header>
+
+    <div id="vista-inicio" class="vista-seccion animate-fade-in">
+        <section class="hero-banner">
+            <div class="hero-content">
+                <span class="hero-tagline">BIENVENIDO A NUESTRA EXPERIENCIA</span>
+                <h1>"El aroma que despierta tus mañanas y el sabor que alegra tu día."</h1>
+                <p>Disfruta de café artesanal hondureño y los mejores platillos en El Progreso y San Pedro Sula.</p>
+                <button class="hero-cta-btn" onclick="navegarA('ofertas')">Ver Promociones y Ofertas</button>
+            </div>
+        </section>
+
+        <main class="container">
+            <section class="promo-section">
+                <h2 class="section-title">Anuncios & Promociones Especiales</h2>
+                <div class="slider-container">
+                    <div class="slider-track">
+                        <div class="slide bg-orange">
+                            <span class="badge-discount">🔥 20% OFF</span>
+                            <h3>Super Combo Desayuno Criollo</h3>
+                            <p>Desayuno Típico Hondureño + Café Cappuccino con descuento en tu pedido en línea.</p>
+                        </div>
+                        <div class="slide bg-brown">
+                            <span class="badge-discount">🎉 ¡OFERTA 2x1!</span>
+                            <h3>Tarde Dulce & Café</h3>
+                            <p>En la compra de cualquier café helado, llévate tu pie de limón a mitad de precio.</p>
+                        </div>
+                        <div class="slide bg-dark">
+                            <span class="badge-discount">⚡ EXCLUSIVO</span>
+                            <h3>Granos Seleccionados de Marcala</h3>
+                            <p>Prueba nuestros espressos dobles preparados por baristas expertos.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="site-footer">
+            <div class="footer-links-dummy">
+                <span>Menú</span>
+                <span>Quienes Somos</span>
+                <span>Trabaja con Nosotros</span>
+                <span>Arábica App</span>
+                <span>Contacto: contacto@cafeteriaarabica.hn</span>
+            </div>
+            <hr class="footer-divider">
+            <div class="footer-social-dummy">
+                <span class="social-icon">Facebook</span>
+                <span class="social-icon">Instagram</span>
+                <span class="social-icon">X</span>
+                <span class="social-icon">TikTok</span>
+            </div>
+        </footer>
+    </div>
+
+    <div id="vista-productos" class="vista-seccion container hidden animate-fade-in">
+        <h2 class="category-header" id="tituloCategoria">Menú</h2>
+        <div class="product-grid" id="gridProductos"></div>
+    </div>
+
+    <div id="modalCheckout" class="modal-overlay hidden">
+        <div class="checkout-card modal-animated">
+            <div class="checkout-header">
+                <h3>Finalizar Compra</h3>
+                <p>Ingresa tus datos para completar el pedido</p>
+            </div>
+            
+            <div class="cart-summary-list" id="resumenCarritoLista"></div>
+
+            <form id="checkoutForm" onsubmit="confirmarPedido(event)">
+                <div class="form-group">
+                    <label for="txtNombre">Nombre Completo:</label>
+                    <input type="text" id="txtNombre" class="form-control" placeholder="Ej. Carlos Mendoza" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="ddlTipoEntrega">Tipo de Entrega:</label>
+                    <select id="ddlTipoEntrega" class="form-control" onchange="evaluarTipoEntrega()">
+                        <option value="Envío a Domicilio">Envío a Domicilio</option>
+                        <option value="Recoger en Local">Recoger en Local</option>
+                    </select>
+                </div>
+
+                <div id="grupoEnvio">
+                    <div class="form-group">
+                        <label for="ddlColonia">Colonia / Sector de Entrega:</label>
+                        <select id="ddlColonia" class="form-control" onchange="calcularTiempoEstimado()">
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="txtDireccion">Dirección Exacta (Calle / Num Casa):</label>
+                        <input type="text" id="txtDireccion" class="form-control" placeholder="Ej. Calle 3, Casa #102">
+                    </div>
+
+                    <div class="delivery-time-box">
+                        ⏱️ Tiempo estimado de entrega: <strong id="lblTiempoEstimado">30 - 40 min</strong>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="ddlPago">Método de Pago:</label>
+                    <select id="ddlPago" class="form-control">
+                        <option value="Efectivo">Efectivo (Lempiras)</option>
+                        <option value="Transferencia">Transferencia Bancaria</option>
+                        <option value="Tarjeta">Tarjeta de Crédito / Débito</option>
+                    </select>
+                </div>
+
+                <div class="checkout-summary">
+                    <span>Total a Pagar:</span>
+                    <strong id="lblTotalCheckout">L. 0.00</strong>
+                </div>
+
+                <div class="checkout-actions">
+                    <button type="submit" class="btn-confirm">Confirmar Pedido</button>
+                    <button type="button" class="btn-cancel" onclick="cerrarModalCompra()">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="modalFactura" class="modal-overlay hidden">
+        <div class="receipt-card modal-animated" id="areaFacturaImpresion">
+            <div class="receipt-header">
+                <h2>☕ Cafetería Arábica</h2>
+                <p>RTN: 05011990123456</p>
+                <p style="font-size: 0.72rem; margin-top: 4px; line-height: 1.2;">
+                    📍 <strong>Sucursal El Progreso:</strong> Barrio El Centro, Calle Principal<br>
+                    📍 <strong>Sucursal San Pedro Sula:</strong> Barrio Guamilito, 5ta Avenida
+                </p>
+                <h3>COMPROBANTE DE PAGO</h3>
+            </div>
+            
+            <div class="receipt-body">
+                <p><strong>N° Pedido:</strong> <span id="facturaId">#000</span></p>
+                <p><strong>Fecha:</strong> <span id="facturaFecha"></span></p>
+                <p><strong>Cliente:</strong> <span id="facturaCliente"></span></p>
+                <p><strong>Entrega:</strong> <span id="facturaEntrega"></span></p>
+                <p><strong>Método Pago:</strong> <span id="facturaPago"></span></p>
+                
+                <hr class="receipt-divider">
+                <div id="facturaItems"></div>
+                <hr class="receipt-divider">
+
+                <div class="receipt-total">
+                    <span>TOTAL:</span>
+                    <span id="facturaTotal">L. 0.00</span>
+                </div>
+            </div>
+
+            <div class="receipt-footer">
+                <p>¡Gracias por tu compra!</p>
+                <p>Esperamos verte pronto.</p>
+                <div class="receipt-actions-row">
+                    <button type="button" class="btn-print" onclick="imprimirFactura()">🖨️ Imprimir Factura</button>
+                    <button type="button" class="btn-confirm" onclick="cerrarFactura()">Entendido / Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modalHistorial" class="modal-overlay hidden">
+        <div class="checkout-card modal-animated modal-large">
+            <div class="checkout-header">
+                <h3>📊 Historial de Pedidos Realizados</h3>
+                <p>Registro de compras confirmadas almacenadas en la base de datos local</p>
+            </div>
+
+            <div style="background: #27ae60; color: white; padding: 12px 20px; border-radius: 8px; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center; font-weight: bold; font-size: 1.1rem;">
+                <span>💰 TOTAL DE INGRESOS ACUMULADOS:</span>
+                <span id="lblIngresosTotales">L. 0.00</span>
+            </div>
+            
+            <div class="table-responsive">
+                <table class="gridview-table">
+                    <thead>
+                        <tr>
+                            <th>N°</th>
+                            <th>Cliente</th>
+                            <th>Entrega / Lugar</th>
+                            <th>Pago</th>
+                            <th>Productos</th>
+                            <th>Total (L.)</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tablaPedidosBody"></tbody>
+                </table>
+            </div>
+
+            <div class="checkout-actions" style="margin-top: 20px;">
+                <button type="button" class="btn-cancel" onclick="cerrarHistorial()">Cerrar Historial</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="toastNotification" class="toast hidden">✓ Producto agregado al carrito</div>
+
+    <script src="script.js"></script>
+</body>
+</html>
