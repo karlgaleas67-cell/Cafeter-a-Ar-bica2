@@ -276,9 +276,9 @@ async function confirmarPedido(event) {
 
     const numPedidoStr = `#${String(contadorPedidos).padStart(3, '0')}`;
 
-    // 1. GUARDAR EN LA BASE DE DATOS SQLITE (BACKEND NODE.JS)
+    // 1. GUARDAR EN LA BASE DE DATOS SQLITE (RENDER)
     try {
-        const respuesta = await fetch('http://localhost:3000/api/pedidos', {
+        const respuesta = await fetch('https://cafeteria-backend-2rjx.onrender.com/api/pedidos', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -292,7 +292,7 @@ async function confirmarPedido(event) {
         });
 
         if (respuesta.ok) {
-            console.log("¡Pedido guardado con éxito en SQLite!");
+            console.log("¡Pedido guardado con éxito en Render!");
         } else {
             console.error("Error al guardar en el servidor");
         }
@@ -371,7 +371,7 @@ function cerrarHistorial() {
     if (modal) modal.classList.add("hidden");
 }
 
-// --- CONSULTAR HISTORIAL DESDE LA BASE DE DATOS SQLITE ---
+// --- CONSULTAR HISTORIAL DESDE RENDER ---
 async function renderizarHistorial() {
     const tbody = document.getElementById("tablaPedidosBody");
     if (!tbody) return;
@@ -380,7 +380,7 @@ async function renderizarHistorial() {
     let ingresosTotales = 0;
 
     try {
-        const respuesta = await fetch('http://localhost:3000/api/pedidos');
+        const respuesta = await fetch('https://cafeteria-backend-2rjx.onrender.com/api/pedidos');
         const pedidosRealizados = await respuesta.json();
 
         let numeroVisual = 1;
@@ -416,7 +416,7 @@ async function renderizarHistorial() {
     }
 }
 
-// --- FUNCIÓN PARA ELIMINAR UN PEDIDO EN SQLITE ---
+// --- FUNCIÓN PARA ELIMINAR UN PEDIDO EN RENDER ---
 async function eliminarPedido(idOriginalBaseDatos) {
     const confirmar = confirm("¿Estás seguro que deseas eliminar este pedido?");
     
@@ -424,7 +424,7 @@ async function eliminarPedido(idOriginalBaseDatos) {
         try {
             const idCodificado = encodeURIComponent(idOriginalBaseDatos);
             
-            const respuesta = await fetch(`http://localhost:3000/api/pedidos/${idCodificado}`, {
+            const respuesta = await fetch(`https://cafeteria-backend-2rjx.onrender.com/api/pedidos/${idCodificado}`, {
                 method: 'DELETE'
             });
 
@@ -435,7 +435,7 @@ async function eliminarPedido(idOriginalBaseDatos) {
             }
         } catch (error) {
             console.error("Error eliminando el pedido:", error);
-            alert("Asegúrate de que tu servidor Node (server.js) esté encendido corriendo en la terminal.");
+            alert("Asegúrate de que el servidor en Render esté activo.");
         }
     }
 }
