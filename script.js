@@ -1,33 +1,44 @@
 const productosBD = [
+    // Desayunos (5 productos exactos)
     { id: 1, nombre: "Desayuno Típico Hondureño", precio: 96.00, categoria: "desayunos", stock: 5, img: "https://images.unsplash.com/photo-1533089860892-a7c6f0a88666?auto=format&fit=crop&w=400&q=80" },
     { id: 2, nombre: "Baleada Especial Criolla", precio: 48.00, categoria: "desayunos", stock: 5, img: "https://images.unsplash.com/photo-1626700051175-6818013e1d4f?auto=format&fit=crop&w=400&q=80" },
     { id: 3, nombre: "Pancakes con Miel & Frutas", precio: 76.00, categoria: "desayunos", stock: 5, img: "https://images.unsplash.com/photo-1528207776546-365bb710ee93?auto=format&fit=crop&w=400&q=80" },
     { id: 4, nombre: "Omelette de Jamón y Queso", precio: 85.00, categoria: "desayunos", stock: 5, img: "https://images.unsplash.com/photo-1510693206972-df098062cb71?auto=format&fit=crop&w=400&q=80" },
     { id: 5, nombre: "Tostadas Francesas Arábica", precio: 80.00, categoria: "desayunos", stock: 5, img: "https://images.unsplash.com/photo-1484723091739-30a097e8f929?auto=format&fit=crop&w=400&q=80" },
 
+    // Cafés (5 productos exactos)
     { id: 6, nombre: "Café Cappuccino", precio: 55.00, categoria: "cafes", stock: 5, img: "https://images.unsplash.com/photo-1572442388796-11668a67e53d?auto=format&fit=crop&w=400&q=80" },
     { id: 7, nombre: "Espresso Doble", precio: 40.00, categoria: "cafes", stock: 5, img: "https://images.unsplash.com/photo-1510591509098-f4fdc6d0ff04?auto=format&fit=crop&w=400&q=80" },
     { id: 8, nombre: "Latte Frío de Vainilla", precio: 65.00, categoria: "cafes", stock: 5, img: "https://images.unsplash.com/photo-1517701604599-bb29b565090c?auto=format&fit=crop&w=400&q=80" },
     { id: 9, nombre: "Mocaccino Supremo", precio: 70.00, categoria: "cafes", stock: 5, img: "https://images.unsplash.com/photo-1534778101976-62847782c213?auto=format&fit=crop&w=400&q=80" },
     { id: 10, nombre: "Café Americano Negro", precio: 35.00, categoria: "cafes", stock: 5, img: "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=400&q=80" },
 
+    // Bebidas (5 productos exactos)
     { id: 11, nombre: "Jugo Natural de Naranja", precio: 45.00, categoria: "bebidas", stock: 5, img: "https://images.unsplash.com/photo-1613478223719-2ab802602423?auto=format&fit=crop&w=400&q=80" },
     { id: 12, nombre: "Smoothie de Maracuyá", precio: 60.00, categoria: "bebidas", stock: 5, img: "https://images.unsplash.com/photo-1553530666-ba11a7da3888?auto=format&fit=crop&w=400&q=80" },
     { id: 13, nombre: "Limonada con Menta", precio: 50.00, categoria: "bebidas", stock: 5, img: "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=400&q=80" },
     { id: 14, nombre: "Té Frío de Durazno", precio: 45.00, categoria: "bebidas", stock: 5, img: "https://images.unsplash.com/photo-1556679343-c7306c1976bc?auto=format&fit=crop&w=400&q=80" },
     { id: 15, nombre: "Frappé de Galleta Oreo", precio: 75.00, categoria: "bebidas", stock: 5, img: "https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&w=400&q=80" },
 
+    // Postres (5 productos exactos)
     { id: 16, nombre: "Cheesecake de Frutilla", precio: 75.00, categoria: "postres", stock: 5, img: "https://images.unsplash.com/photo-1533134242443-d4fd215305ad?auto=format&fit=crop&w=400&q=80" },
     { id: 17, nombre: "Pie de Limón Artesanal", precio: 65.00, categoria: "postres", stock: 5, img: "https://images.unsplash.com/photo-1519869325930-281384150729?auto=format&fit=crop&w=400&q=80" },
     { id: 18, nombre: "Volcán de Chocolate", precio: 80.00, categoria: "postres", stock: 5, img: "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?auto=format&fit=crop&w=400&q=80" },
     { id: 19, nombre: "Torta de Tres Leches", precio: 70.00, categoria: "postres", stock: 5, img: "https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?auto=format&fit=crop&w=400&q=80" },
     { id: 20, nombre: "Brownie con Helado", precio: 68.00, categoria: "postres", stock: 5, img: "https://images.unsplash.com/photo-1564355808539-22fda35bed7e?auto=format&fit=crop&w=400&q=80" },
 
+    // Ofertas (5 productos exactos)
     { id: 101, nombre: "Combo Desayuno Típico + Cappuccino", precio: 120.00, categoria: "ofertas", stock: 5, img: "https://images.unsplash.com/photo-1533089860892-a7c6f0a88666?auto=format&fit=crop&w=400&q=80" },
     { id: 102, nombre: "Oferta 2x1 En Latte Frío de Vainilla", precio: 65.00, categoria: "ofertas", stock: 5, img: "https://images.unsplash.com/photo-1517701604599-bb29b565090c?auto=format&fit=crop&w=400&q=80" },
     { id: 103, nombre: "Combo Pie de Limón + Mocaccino", precio: 110.00, categoria: "ofertas", stock: 5, img: "https://images.unsplash.com/photo-1519869325930-281384150729?auto=format&fit=crop&w=400&q=80" },
     { id: 104, nombre: "Combo Pareja: 2 Pancakes + 2 Americanos", precio: 190.00, categoria: "ofertas", stock: 5, img: "https://images.unsplash.com/photo-1528207776546-365bb710ee93?auto=format&fit=crop&w=400&q=80" },
     { id: 105, nombre: "Combo Ejecutivo: Omelette + Jugo", precio: 115.00, categoria: "ofertas", stock: 5, img: "https://images.unsplash.com/photo-1510693206972-df098062cb71?auto=format&fit=crop&w=400&q=80" }
+];
+
+let clientesBD = [
+    { id: 1, nombre: "Carlos Mendoza", telefono: "+504 9988-7766", ciudad: "El Progreso", pedidos: 5, correo: "carlos@ejemplo.com" },
+    { id: 2, nombre: "Ana Sofía Pineda", telefono: "+504 3344-5566", ciudad: "San Pedro Sula", pedidos: 3, correo: "ana@ejemplo.com" },
+    { id: 3, nombre: "Mario Roberto Paz", telefono: "+504 8877-6655", ciudad: "El Progreso", pedidos: 8, correo: "mario@ejemplo.com" }
 ];
 
 let proveedoresBD = [
@@ -54,6 +65,7 @@ const coloniasProgreso = [
 document.addEventListener("DOMContentLoaded", () => {
     filtrarCategoria('todos');
     actualizarColonias();
+    document.getElementById("totalProductosCount").innerText = productosBD.length;
 });
 
 function navegarA(categoria) {
@@ -147,6 +159,78 @@ function mostrarToast(msg) {
     setTimeout(() => toast.classList.add("hidden"), 2500);
 }
 
+// GESTIÓN DE CLIENTES
+function abrirModalClientes() {
+    renderizarClientes();
+    document.getElementById("modalClientes").classList.remove("hidden");
+}
+function cerrarModalClientes() { document.getElementById("modalClientes").classList.add("hidden"); }
+
+function renderizarClientes() {
+    const tbody = document.getElementById("tablaClientesBody");
+    tbody.innerHTML = "";
+    clientesBD.forEach((cli, index) => {
+        tbody.innerHTML += `
+            <tr>
+                <td>${cli.id}</td>
+                <td>${cli.nombre}</td>
+                <td>${cli.telefono}</td>
+                <td>${cli.ciudad}</td>
+                <td>${cli.pedidos} pedidos</td>
+                <td><button class="btn-cancel" style="padding:4px 8px;" onclick="eliminarCliente(${index})">Eliminar</button></td>
+            </tr>`;
+    });
+    
+    // Actualizar también el desplegable dentro del formulario de compra
+    const selectCli = document.getElementById("selectClienteExistente");
+    if(selectCli) {
+        selectCli.innerHTML = `<option value="">-- Seleccione un cliente o escriba abajo --</option>`;
+        clientesBD.forEach(c => {
+            selectCli.innerHTML += `<option value="${c.nombre}">${c.nombre} (${c.telefono})</option>`;
+        });
+    }
+}
+
+function agregarCliente(event) {
+    event.preventDefault();
+    const nombre = document.getElementById("cliNombre").value.trim();
+    const telefono = document.getElementById("cliTelefono").value.trim();
+    const ciudad = document.getElementById("cliCiudad").value;
+    const pedidos = parseInt(document.getElementById("cliPedidos").value) || 1;
+
+    if(nombre && telefono) {
+        clientesBD.push({
+            id: clientesBD.length + 1,
+            nombre, telefono, ciudad, pedidos, correo: `${nombre.toLowerCase().replace(/\s+/g,'')}@ejemplo.com`
+        });
+        document.getElementById("formAgregarCliente").reset();
+        renderizarClientes();
+        mostrarToast("✓ Cliente registrado correctamente");
+    }
+}
+
+function eliminarCliente(index) {
+    if(confirm("¿Desea eliminar este cliente de la base de datos?")) {
+        clientesBD.splice(index, 1);
+        renderizarClientes();
+        mostrarToast("✓ Cliente eliminado");
+    }
+}
+
+function seleccionarClienteExistente() {
+    const select = document.getElementById("selectClienteExistente");
+    const nombreSel = select.value;
+    if(!nombreSel) return;
+    const clienteEncontrado = clientesBD.find(c => c.nombre === nombreSel);
+    if(clienteEncontrado) {
+        document.getElementById("txtNombre").value = clienteEncontrado.nombre;
+        document.getElementById("txtTelefono").value = clienteEncontrado.telefono;
+        document.getElementById("txtCorreo").value = clienteEncontrado.correo || `${clienteEncontrado.nombre.toLowerCase().replace(/\s+/g,'')}@ejemplo.com`;
+        document.getElementById("selectCiudadFiltro").value = clienteEncontrado.ciudad;
+        actualizarColonias();
+    }
+}
+
 function abrirReponerStock(id) {
     productoActualReponer = productosBD.find(p => p.id === id);
     if (!productoActualReponer) return;
@@ -203,6 +287,7 @@ function abrirModalCompra() {
         alert("El carrito está vacío.");
         return;
     }
+    renderizarClientes(); // Actualizar desplegable de clientes al abrir compra
     const contenedor = document.getElementById("resumenCarritoLista");
     contenedor.innerHTML = "";
     let total = 0;
@@ -239,6 +324,7 @@ async function confirmarPedido(event) {
     const ciudad = document.getElementById("selectCiudadFiltro").value;
     const colonia = tipoEntrega === "Envío a Domicilio" ? document.getElementById("ddlColonia").value : "Retiro en local";
     const pago = document.getElementById("ddlPago").value;
+    const sugerenciaManual = document.getElementById("txtSugerenciaCliente").value.trim();
 
     if (!correo.includes("@")) {
         alert("⚠️ El correo electrónico debe incluir obligatoriamente una arroba (@) para poder procesar el pago.");
@@ -274,6 +360,15 @@ async function confirmarPedido(event) {
     document.getElementById("facturaEntrega").innerText = `${ciudad} (${colonia})`;
     document.getElementById("facturaPago").innerText = pago;
     
+    const sugBox = document.getElementById("facturaSugerenciaBox");
+    if(sugerenciaManual) {
+        sugBox.innerText = `Sugerencia / Comentario: "${sugerenciaManual}"`;
+        sugBox.classList.remove("hidden");
+    } else {
+        sugBox.innerText = "";
+        sugBox.classList.add("hidden");
+    }
+
     const contenedorItems = document.getElementById("facturaItems");
     contenedorItems.innerHTML = "";
     for (const [nombre, datos] of Object.entries(conteo)) {
@@ -335,7 +430,7 @@ function renderizarProveedores() {
     const tbody = document.getElementById("tablaProveedoresBody");
     tbody.innerHTML = "";
     proveedoresBD.forEach((prov, index) => {
-        tbody.innerHTML += `<tr><td>${prov.id}</td><td>${prov.nombre}</td><td>${prov.insumo}</td><td>${prov.pago}</td><td><button class="btn-cancel" style="padding:4px 8px;" onclick="eliminarProveedor(${index})">Eliminar</button></td></tr>`;
+        tbody.innerHTML += `<tr><td>${prov.id}</td><td>${prov.nombre}</td><td>${prov.insumo}</td><td>${prov.pago}</td><td>${prov.contacto}</td><td><button class="btn-cancel" style="padding:4px 8px;" onclick="eliminarProveedor(${index})">Eliminar</button></td></tr>`;
     });
 }
 
