@@ -3,96 +3,71 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cafetería Arábica - Menú Digital</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+    <title>Cafetería Artesanal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <header class="top-nav-bar">
-        <div class="nav-logo" onclick="navegarA('inicio')">Cafetería Arábica</div>
-        
-        <div class="location-box">
-            <span>📍 Ciudad:</span>
-            <select id="selectCiudadFiltro" class="city-selector" onchange="actualizarColonias()">
-                <option value="El Progreso">El Progreso</option>
-                <option value="San Pedro Sula">San Pedro Sula</option>
-            </select>
+    <header>
+        <div class="nav-logo" onclick="navegarA('inicio')">☕ Aroma & Tradición</div>
+        <div class="header-nav-btns">
+            <button class="header-btn" onclick="abrirModalInventario()">📦 Inventario</button>
+            <button class="header-btn" onclick="abrirModalProveedores()">🚚 Proveedores</button>
+            <button class="header-btn" onclick="pedirAccesoHistorial()">📊 Historial de Pedidos</button>
+            <button class="cart-badge-btn" onclick="abrirModalCompra()">🛒 Carrito (<span id="cartCount">0</span>)</button>
         </div>
-
-        <nav class="nav-links-right">
-            <!-- Menú Desplegable: Clientes -->
-            <div class="dropdown">
-                <a href="javascript:void(0)" class="dropbtn">👥 Clientes ▾</a>
-                <div class="dropdown-content">
-                    <a href="javascript:void(0)" onclick="abrirModalClientes()">👥 Consultar Clientes</a>
-                    <a href="javascript:void(0)" onclick="abrirModalComentarios()">💬 Comentarios</a>
-                </div>
-            </div>
-
-            <!-- Menú Desplegable: Menú -->
-            <div class="dropdown">
-                <a href="javascript:void(0)" class="dropbtn">🍽️ Menú ▾</a>
-                <div class="dropdown-content">
-                    <a href="javascript:void(0)" onclick="navegarA('inicio')">Inicio / Bienvenida</a>
-                    <a href="javascript:void(0)" onclick="navegarA('desayunos')">Desayunos</a>
-                    <a href="javascript:void(0)" onclick="navegarA('cafes')">Cafés</a>
-                    <a href="javascript:void(0)" onclick="navegarA('bebidas')">Bebidas</a>
-                    <a href="javascript:void(0)" onclick="navegarA('postres')">Postres</a>
-                    <a href="javascript:void(0)" onclick="navegarA('ofertas')">🏷️ Ofertas</a>
-                    <a href="javascript:void(0)" onclick="navegarA('todos')">Ver Todo el Menú</a>
-                </div>
-            </div>
-
-            <button class="cart-trigger-btn" onclick="abrirModalProveedores()">📦 Proveedores</button>
-            <button class="cart-trigger-btn" onclick="abrirModalInventario()">📋 Inventario</button>
-            <button class="cart-trigger-btn" onclick="abrirModalCompra()">🛒 Carrito (<span id="cartCount">0</span>)</button>
-            <button class="cart-trigger-btn" onclick="pedirAccesoHistorial()">📊 Acceso Historial</button>
-        </nav>
     </header>
 
-    <div id="vista-inicio" class="vista-seccion animate-fade-in">
-        <section class="hero-banner">
+    <!-- VISTA INICIO -->
+    <div id="vista-inicio">
+        <section class="hero-section">
             <div class="hero-content">
-                <span class="hero-tagline">BIENVENIDO A NUESTRA EXPERIENCIA</span>
-                <h1>"El aroma que despierta tus mañanas y el sabor que alegra tu día."</h1>
-                <p>Disfruta de café artesanal hondureño y los mejores platillos en El Progreso y San Pedro Sula.</p>
-                <button class="hero-cta-btn" onclick="navegarA('ofertas')">Ver Promociones y Ofertas</button>
+                <h2>El Mejor Café de Origen y Desayunos</h2>
+                <p>Disfruta de momentos inolvidables con nuestros productos artesanales elaborados con amor y dedicación.</p>
+                <button class="hero-cta-btn" onclick="navegarA('todos')">Ver Menú Completo</button>
             </div>
         </section>
 
-        <main class="container">
-            <section class="promo-section">
-                <h2 class="section-title">Anuncios & Promociones Especiales</h2>
-                <div class="slider-container">
-                    <div class="slider-track">
-                        <div class="slide bg-orange">
-                            <span class="badge-discount">🔥 20% OFF</span>
-                            <h3>Super Combo Desayuno Criollo</h3>
-                            <p>Desayuno Típico Hondureño + Café Cappuccino con descuento en tu pedido en línea.</p>
-                        </div>
-                        <div class="slide bg-brown">
-                            <span class="badge-discount">🎉 ¡OFERTA 2x1!</span>
-                            <h3>Tarde Dulce & Café</h3>
-                            <p>En la compra de cualquier café helado, llévate tu pie de limón a mitad de precio.</p>
-                        </div>
-                        <div class="slide bg-dark">
-                            <span class="badge-discount">⚡ EXCLUSIVO</span>
-                            <h3>Granos Seleccionados de Marcala</h3>
-                            <p>Prueba nuestros espressos dobles preparados por baristas expertos.</p>
-                        </div>
+        <div class="container">
+            <h3 class="section-title">Categorías Populares</h3>
+            <div class="grid-productos">
+                <div class="product-card cat-card-desayunos" onclick="navegarA('desayunos')" style="cursor: pointer;">
+                    <img src="https://images.unsplash.com/photo-1533089860892-a7c6f0a88666?auto=format&fit=crop&w=400&q=80" alt="Desayunos">
+                    <div class="card-body">
+                        <div class="card-title">Desayunos Especiales</div>
+                        <p style="font-size: 0.85rem; color: #666;">Comienza tu día con energía.</p>
                     </div>
                 </div>
-            </section>
-        </main>
+                <div class="product-card cat-card-cafes" onclick="navegarA('cafes')" style="cursor: pointer;">
+                    <img src="https://images.unsplash.com/photo-1572442388796-11668a67e53d?auto=format&fit=crop&w=400&q=80" alt="Cafés">
+                    <div class="card-body">
+                        <div class="card-title">Cafés de Origen</div>
+                        <p style="font-size: 0.85rem; color: #666;">Aromas y sabores únicos.</p>
+                    </div>
+                </div>
+                <div class="product-card cat-card-bebidas" onclick="navegarA('bebidas')" style="cursor: pointer;">
+                    <img src="https://images.unsplash.com/photo-1613478223719-2ab802602423?auto=format&fit=crop&w=400&q=80" alt="Bebidas">
+                    <div class="card-body">
+                        <div class="card-title">Bebidas & Jugos</div>
+                        <p style="font-size: 0.85rem; color: #666;">Refresca tu tarde.</p>
+                    </div>
+                </div>
+                <div class="product-card cat-card-postres" onclick="navegarA('postres')" style="cursor: pointer;">
+                    <img src="https://images.unsplash.com/photo-1533134242443-d4fd215305ad?auto=format&fit=crop&w=400&q=80" alt="Postres">
+                    <div class="card-body">
+                        <div class="card-title">Postres Artesanales</div>
+                        <p style="font-size: 0.85rem; color: #666;">El toque dulce perfecto.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <!-- VISTA DE PRODUCTOS CON FILTROS EN PASTILLA -->
-    <div id="vista-productos" class="vista-seccion container hidden animate-fade-in">
-        <h2 class="category-header" id="tituloCategoria">Menú Especial</h2>
-        
-        <div class="pill-filters">
-            <button class="pill-btn active" onclick="filtrarCategoria('todos', this)">Todo</button>
+    <!-- VISTA PRODUCTOS / MENÚ -->
+    <div id="vista-productos" class="hidden">
+        <div class="categories-bar">
+            <button class="pill-btn active" onclick="filtrarCategoria('todos', this)">Todos</button>
             <button class="pill-btn" onclick="filtrarCategoria('desayunos', this)">Desayunos</button>
             <button class="pill-btn" onclick="filtrarCategoria('cafes', this)">Cafés</button>
             <button class="pill-btn" onclick="filtrarCategoria('bebidas', this)">Bebidas</button>
@@ -100,239 +75,226 @@
             <button class="pill-btn" onclick="filtrarCategoria('ofertas', this)">Ofertas</button>
         </div>
 
-        <div class="product-grid" id="gridProductos"></div>
+        <div class="container">
+            <div style="margin-bottom: 20px;">
+                <button class="header-btn" style="background: var(--primary);" onclick="navegarA('inicio')">← Volver al Inicio</button>
+            </div>
+            <h2 id="tituloCategoria" class="section-title">Menú Completo</h2>
+            <div id="gridProductos" class="grid-productos"></div>
+        </div>
     </div>
 
-    <!-- MODAL CHECKOUT -->
-    <div id="modalCheckout" class="modal-overlay hidden">
-        <div class="checkout-card modal-animated">
-            <div class="checkout-header">
-                <h3>Finalizar Compra</h3>
-                <p>Ingresa tus datos para completar el pedido</p>
+    <!-- MODAL REPONER STOCK -->
+    <div id="modalReponerStock" class="modal-overlay hidden">
+        <div class="modal-content" style="max-width: 400px;">
+            <div class="modal-header">
+                <h3>Reponer Inventario</h3>
+                <button class="close-modal-btn" onclick="cerrarModalReponer()">&times;</button>
             </div>
-            
-            <div class="cart-summary-list" id="resumenCarritoLista"></div>
+            <p id="reponerProductoTitulo" style="margin-bottom: 12px; font-weight: 600;"></p>
+            <form onsubmit="confirmarReponerStock(event)">
+                <div class="form-group">
+                    <label>Cantidad a añadir:</label>
+                    <input type="number" id="txtCantidadReponer" min="1" value="5" required>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn-cancel" onclick="cerrarModalReponer()">Cancelar</button>
+                    <button type="submit" class="btn-confirm">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
 
+    <!-- MODAL CHECKOUT / COMPRA -->
+    <div id="modalCheckout" class="modal-overlay hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Finalizar Pedido</h3>
+                <button class="close-modal-btn" onclick="cerrarModalCompra()">&times;</button>
+            </div>
+            <div style="margin-bottom: 15px;">
+                <h4>Resumen del Carrito:</h4>
+                <div id="resumenCarritoLista" style="max-height: 120px; overflow-y: auto; margin-top: 8px;"></div>
+                <div style="text-align: right; margin-top: 8px; font-size: 1.1rem;">
+                    <strong>Total: <span id="lblTotalCheckout" style="color: var(--primary);">L. 0.00</span></strong>
+                </div>
+            </div>
             <form id="checkoutForm" onsubmit="confirmarPedido(event)">
                 <div class="form-group">
-                    <label for="txtNombre">Nombre Completo:</label>
-                    <input type="text" id="txtNombre" class="form-control" placeholder="Ej. Carlos Mendoza" required>
+                    <label>Nombre Completo:</label>
+                    <input type="text" id="txtNombre" required placeholder="Ej. Juan Pérez">
                 </div>
-
                 <div class="form-group">
-                    <label for="ddlTipoEntrega">Tipo de Entrega:</label>
-                    <select id="ddlTipoEntrega" class="form-control" onchange="evaluarTipoEntrega()">
+                    <label>Correo Electrónico (Obligatorio incluir @):</label>
+                    <input type="text" id="txtCorreo" required placeholder="correo@ejemplo.com">
+                </div>
+                <div class="form-group">
+                    <label>Teléfono:</label>
+                    <input type="tel" id="txtTelefono" required placeholder="+504 9999-9999">
+                </div>
+                <div class="form-group">
+                    <label>Ciudad:</label>
+                    <select id="selectCiudadFiltro" onchange="actualizarColonias()">
+                        <option value="San Pedro Sula">San Pedro Sula</option>
+                        <option value="El Progreso">El Progreso</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Tipo de Entrega:</label>
+                    <select id="ddlTipoEntrega" onchange="evaluarTipoEntrega()">
                         <option value="Envío a Domicilio">Envío a Domicilio</option>
                         <option value="Recoger en Local">Recoger en Local</option>
                     </select>
                 </div>
-
-                <div id="grupoEnvio">
-                    <div class="form-group">
-                        <label for="ddlColonia">Colonia / Sector de Entrega:</label>
-                        <select id="ddlColonia" class="form-control" onchange="calcularTiempoEstimado()"></select>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="txtDireccion">Dirección Exacta:</label>
-                        <input type="text" id="txtDireccion" class="form-control" placeholder="Ej. Calle 3, Casa #102">
-                    </div>
-
-                    <div class="delivery-time-box">
-                        ⏱️ Tiempo estimado: <strong id="lblTiempoEstimado">30 - 40 min</strong>
-                    </div>
+                <div class="form-group" id="grupoEnvio">
+                    <label>Colonia / Sector:</label>
+                    <select id="ddlColonia" onchange="calcularTiempoEstimado()"></select>
+                    <small style="color: #666; display: block; margin-top: 4px;">Tiempo estimado: <span id="lblTiempoEstimado" style="font-weight: bold; color: var(--primary);">--</span></small>
                 </div>
-
                 <div class="form-group">
-                    <label for="ddlPago">Método de Pago:</label>
-                    <select id="ddlPago" class="form-control">
-                        <option value="Efectivo">Efectivo (Lempiras)</option>
-                        <option value="Transferencia">Transferencia Bancaria</option>
-                        <option value="Tarjeta">Tarjeta de Crédito / Débito</option>
+                    <label>Método de Pago:</label>
+                    <select id="ddlPago">
+                        <option value="Efectivo contra entrega">Efectivo contra entrega</option>
+                        <option value="Tarjeta de Crédito / Débito">Tarjeta de Crédito / Débito</option>
+                        <option value="Transferencia Bancaria">Transferencia Bancaria</option>
                     </select>
                 </div>
-
-                <div class="checkout-summary">
-                    <span>Total a Pagar:</span>
-                    <strong id="lblTotalCheckout">L. 0.00</strong>
-                </div>
-
-                <div class="checkout-actions">
-                    <button type="submit" class="btn-confirm">Confirmar Pedido</button>
-                    <button type="button" class="btn-cancel" onclick="cerrarModalCompra()">Cancelar</button>
+                <div class="modal-actions">
+                    <button type="button" class="btn-cancel" onclick="cancelarPedidoForm()">Cancelar Pedido</button>
+                    <button type="submit" class="btn-confirm">Confirmar y Pagar</button>
                 </div>
             </form>
         </div>
     </div>
 
     <!-- MODAL FACTURA -->
-    <div id="modalFactura" class="modal-overlay hidden">
-        <div class="receipt-card modal-animated">
-            <div class="receipt-header">
-                <h2>☕ Cafetería Arábica</h2>
-                <p>RTN: 05011990123456</p>
-                <h3>COMPROBANTE DE PAGO</h3>
+    <div id="modalFactura" class="factura-fullscreen hidden">
+        <div class="factura-box">
+            <span class="factura-close-x" onclick="cerrarFactura()">&times;</span>
+            <div style="text-align: center; margin-bottom: 20px;">
+                <h2 style="font-family: 'Playfair Display', serif; color: var(--primary-dark);">Aroma & Tradición</h2>
+                <p style="font-size: 0.85rem; color: #666;">Comprobante de Pedido / Factura</p>
             </div>
-            <div class="receipt-body">
-                <p><strong>N° Pedido:</strong> <span id="facturaId">#000</span></p>
+            <div style="font-size: 0.9rem; margin-bottom: 15px;">
+                <p><strong>Nº de Pedido:</strong> <span id="facturaId"></span></p>
                 <p><strong>Fecha:</strong> <span id="facturaFecha"></span></p>
                 <p><strong>Cliente:</strong> <span id="facturaCliente"></span></p>
-                <p><strong>Entrega:</strong> <span id="facturaEntrega"></span></p>
-                <p><strong>Pago:</strong> <span id="facturaPago"></span></p>
-                <hr class="receipt-divider">
-                <div id="facturaItems"></div>
-                <hr class="receipt-divider">
-                <div class="receipt-total">
-                    <span>TOTAL:</span>
-                    <span id="facturaTotal">L. 0.00</span>
-                </div>
+                <p><strong>Correo:</strong> <span id="facturaCorreo"></span></p>
+                <p><strong>Teléfono:</strong> <span id="facturaTelefono"></span></p>
+                <p><strong>Destino:</strong> <span id="facturaEntrega"></span></p>
+                <p><strong>Método de Pago:</strong> <span id="facturaPago"></span></p>
             </div>
-            <div class="receipt-footer">
-                <div class="receipt-actions-row">
-                    <button type="button" class="btn-print" onclick="window.print()">🖨️ Imprimir</button>
-                    <button type="button" class="btn-confirm" onclick="cerrarFactura()">Cerrar</button>
-                </div>
+            <div style="border-top: 1px solid #ccc; border-bottom: 1px solid #ccc; padding: 10px 0; margin-bottom: 15px;">
+                <strong>Detalle de productos:</strong>
+                <div id="facturaItems" style="margin-top: 8px;"></div>
             </div>
-        </div>
-    </div>
-
-    <!-- MODAL CONSULTAR CLIENTES -->
-    <div id="modalClientes" class="modal-overlay hidden">
-        <div class="checkout-card modal-animated modal-large">
-            <div class="checkout-header">
-                <h3>👥 Consultar Clientes Frecuentes</h3>
-                <p>Base de datos de clientes registrados</p>
+            <div style="text-align: right; font-size: 1.1rem; margin-bottom: 25px;">
+                <strong>Total Pagado: <span id="facturaTotal" style="color: var(--primary);"></span></strong>
             </div>
-            <div class="table-responsive">
-                <table class="gridview-table">
-                    <thead>
-                        <tr><th>ID</th><th>Nombre</th><th>Teléfono</th><th>Ciudad</th><th>Pedidos Realizados</th></tr>
-                    </thead>
-                    <tbody>
-                        <tr><td>1</td><td>Carlos Mendoza</td><td>+504 9988-7766</td><td>El Progreso</td><td>5 pedidos</td></tr>
-                        <tr><td>2</td><td>Ana Sofía Pineda</td><td>+504 3344-5566</td><td>San Pedro Sula</td><td>3 pedidos</td></tr>
-                        <tr><td>3</td><td>Mario Roberto Paz</td><td>+504 8877-6655</td><td>El Progreso</td><td>8 pedidos</td></tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="checkout-actions" style="margin-top: 20px;">
-                <button type="button" class="btn-cancel" onclick="cerrarModalClientes()">Cerrar</button>
+            <div style="text-align: center;" class="no-print">
+                <button class="btn-confirm" onclick="window.print()">🖨️ Imprimir Factura</button>
+                <button class="header-btn" style="background: var(--primary); margin-left: 10px;" onclick="cerrarFactura()">Cerrar</button>
             </div>
         </div>
     </div>
 
-    <!-- MODAL COMENTARIOS -->
-    <div id="modalComentarios" class="modal-overlay hidden">
-        <div class="checkout-card modal-animated">
-            <div class="checkout-header">
-                <h3>💬 Comentarios y Sugerencias</h3>
-                <p>Opiniones recientes de nuestros clientes</p>
-            </div>
-            <div style="max-height: 250px; overflow-y: auto; margin-bottom: 15px; font-size: 0.9rem;">
-                <p style="padding: 8px; background: #f1f1f1; border-radius: 4px; margin-bottom: 8px;">⭐ <strong>Carlos M.:</strong> "¡El café cappuccino está excelente y llegó muy caliente!"</p>
-                <p style="padding: 8px; background: #f1f1f1; border-radius: 4px; margin-bottom: 8px;">⭐ <strong>Ana P.:</strong> "Las baleadas riquísimas, excelente servicio en El Progreso."</p>
-            </div>
-            <div class="checkout-actions">
-                <button type="button" class="btn-cancel" onclick="cerrarModalComentarios()">Cerrar</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- MODAL HISTORIAL -->
+    <!-- MODAL HISTORIAL DE PEDIDOS (ADMIN) -->
     <div id="modalHistorial" class="modal-overlay hidden">
-        <div class="checkout-card modal-animated modal-large">
-            <div class="checkout-header">
-                <h3>📊 Historial de Ventas</h3>
+        <div class="modal-content" style="max-width: 800px;">
+            <div class="modal-header">
+                <h3>Historial de Pedidos (Administrador)</h3>
+                <button class="close-modal-btn" onclick="cerrarHistorial()">&times;</button>
             </div>
-            <div style="background: #27ae60; color: white; padding: 10px; border-radius: 6px; margin-bottom: 15px; font-weight: bold;">
-                TOTAL INGRESOS: <span id="lblIngresosTotales">L. 0.00</span>
-            </div>
-            <div class="table-responsive">
-                <table class="gridview-table">
+            <div style="overflow-x: auto; max-height: 350px;">
+                <table class="admin-table">
                     <thead>
-                        <tr><th>N°</th><th>Cliente</th><th>Entrega</th><th>Pago</th><th>Productos</th><th>Total</th><th>Acción</th></tr>
+                        <tr>
+                            <th>#</th>
+                            <th>Cliente</th>
+                            <th>Destino</th>
+                            <th>Pago</th>
+                            <th>Productos</th>
+                            <th>Total</th>
+                            <th>Acción</th>
+                        </tr>
                     </thead>
                     <tbody id="tablaPedidosBody"></tbody>
                 </table>
             </div>
-            <div class="checkout-actions" style="margin-top: 20px;">
-                <button type="button" class="btn-cancel" onclick="cerrarHistorial()">Cerrar</button>
+            <div style="text-align: right; margin-top: 15px; font-size: 1.1rem;">
+                <strong>Ingresos Totales: <span id="lblIngresosTotales" style="color: var(--success);">L. 0.00</span></strong>
             </div>
         </div>
     </div>
 
-    <!-- MODAL PROVEEDORES -->
+    <!-- MODAL PROVEEDORES (ADMIN) -->
     <div id="modalProveedores" class="modal-overlay hidden">
-        <div class="checkout-card modal-animated modal-large">
-            <div class="checkout-header">
-                <h3>📦 Gestión de Proveedores</h3>
+        <div class="modal-content" style="max-width: 700px;">
+            <div class="modal-header">
+                <h3>Gestión de Proveedores</h3>
+                <button class="close-modal-btn" onclick="cerrarProveedores()">&times;</button>
             </div>
-            <div class="table-responsive">
-                <table class="gridview-table">
+            <div style="overflow-x: auto; max-height: 200px; margin-bottom: 15px;">
+                <table class="admin-table">
                     <thead>
-                        <tr><th>ID</th><th>Proveedor</th><th>Insumo</th><th>Pago</th><th>Contacto</th></tr>
+                        <tr>
+                            <th>ID</th>
+                            <th>Proveedor</th>
+                            <th>Insumo</th>
+                            <th>Pago</th>
+                            <th>Acción</th>
+                        </tr>
                     </thead>
-                    <tbody>
-                        <tr><td>01</td><td>Café de Altura S.A.</td><td>Granos de Café</td><td>Transferencia</td><td>+504 2233-4455</td></tr>
-                        <tr><td>02</td><td>Lácteos del Norte</td><td>Queso y Crema</td><td>Efectivo</td><td>+504 2665-7788</td></tr>
-                    </tbody>
+                    <tbody id="tablaProveedoresBody"></tbody>
                 </table>
             </div>
-            <div class="checkout-actions" style="margin-top: 20px;">
-                <button type="button" class="btn-cancel" onclick="cerrarProveedores()">Cerrar</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- MODAL INVENTARIO -->
-    <div id="modalInventario" class="modal-overlay hidden">
-        <div class="checkout-card modal-animated modal-large">
-            <div class="checkout-header">
-                <h3>📋 Inventario y Stock</h3>
-            </div>
-            <div class="table-responsive">
-                <table class="gridview-table">
-                    <thead>
-                        <tr><th>Código</th><th>Producto</th><th>Categoría</th><th>Precio</th><th>Stock</th><th>Acción</th></tr>
-                    </thead>
-                    <tbody id="tablaInventarioBody"></tbody>
-                </table>
-            </div>
-            <div class="checkout-actions" style="margin-top: 20px;">
-                <button type="button" class="btn-cancel" onclick="cerrarInventario()">Cerrar</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- MODAL REPONER STOCK -->
-    <div id="modalReponerStock" class="modal-overlay hidden">
-        <div class="checkout-card modal-animated">
-            <div class="checkout-header">
-                <h3>📦 Reponer Stock</h3>
-                <p id="reponerProductoTitulo">Producto (Stock actual: 0)</p>
-            </div>
-            <form onsubmit="confirmarReponerStock(event)">
-                <div class="form-group">
-                    <label>Cantidad a Reponer:</label>
-                    <input type="number" id="txtCantidadReponer" class="form-control" value="10" min="1" required>
+            <form id="formAgregarProveedor" onsubmit="agregarProveedor(event)" style="border-top: 1px solid #eee; padding-top: 12px;">
+                <h4>Añadir Nuevo Proveedor</h4>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 8px;">
+                    <div class="form-group"><input type="text" id="provNombre" placeholder="Nombre Empresa" required></div>
+                    <div class="form-group"><input type="text" id="provInsumo" placeholder="Insumo Suministrado" required></div>
+                    <div class="form-group">
+                        <select id="provPago">
+                            <option value="Transferencia">Transferencia</option>
+                            <option value="Efectivo">Efectivo</option>
+                            <option value="Crédito">Crédito</option>
+                        </select>
+                    </div>
+                    <div class="form-group"><input type="text" id="provContacto" placeholder="Teléfono de contacto"></div>
                 </div>
-                <div class="form-group">
-                    <label>Proveedor:</label>
-                    <select id="ddlProveedorStock" class="form-control">
-                        <option value="Café de Altura S.A.">Café de Altura S.A.</option>
-                        <option value="Lácteos del Norte">Lácteos del Norte</option>
-                        <option value="Distribuidora de Mariscos">Distribuidora de Mariscos</option>
-                    </select>
-                </div>
-                <div class="checkout-actions">
-                    <button type="submit" class="btn-confirm">Confirmar</button>
-                    <button type="button" class="btn-cancel" onclick="cerrarModalReponer()">Cancelar</button>
-                </div>
+                <button type="submit" class="btn-confirm" style="width: 100%; margin-top: 5px;">Agregar Proveedor</button>
             </form>
         </div>
     </div>
 
-    <div id="toastNotification" class="toast hidden">✓ Producto agregado</div>
+    <!-- MODAL INVENTARIO (ADMIN) -->
+    <div id="modalInventario" class="modal-overlay hidden">
+        <div class="modal-content" style="max-width: 700px;">
+            <div class="modal-header">
+                <h3>Control General de Inventario</h3>
+                <button class="close-modal-btn" onclick="cerrarInventario()">&times;</button>
+            </div>
+            <div style="overflow-x: auto; max-height: 400px;">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Producto</th>
+                            <th>Categoría</th>
+                            <th>Precio</th>
+                            <th>Stock</th>
+                            <th>Acción</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tablaInventarioBody"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- NOTIFICACIÓN TOAST -->
+    <div id="toastNotification" class="toast hidden"></div>
+
     <script src="script.js"></script>
 </body>
 </html>
