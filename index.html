@@ -12,9 +12,10 @@
     <header>
         <div class="nav-logo" onclick="navegarA('inicio')">☕ Aroma & Tradición</div>
         <div class="header-nav-btns">
-            <button class="header-btn" onclick="abrirModalInventario()">📦 Inventario</button>
+            <button class="header-btn" onclick="abrirModalInventario()">📦 Inventario (<span id="totalProductosCount">0</span>)</button>
+            <button class="header-btn" onclick="abrirModalClientes()">👥 Clientes</button>
             <button class="header-btn" onclick="abrirModalProveedores()">🚚 Proveedores</button>
-            <button class="header-btn" onclick="pedirAccesoHistorial()">📊 Historial de Pedidos</button>
+            <button class="header-btn" onclick="pedirAccesoHistorial()">📊 Historial</button>
             <button class="cart-badge-btn" onclick="abrirModalCompra()">🛒 Carrito (<span id="cartCount">0</span>)</button>
         </div>
     </header>
@@ -67,7 +68,7 @@
     <!-- VISTA PRODUCTOS / MENÚ -->
     <div id="vista-productos" class="hidden">
         <div class="categories-bar">
-            <button class="pill-btn active" onclick="filtrarCategoria('todos', this)">Todos</button>
+            <button class="pill-btn active" onclick="filtrarCategoria('todos', this)">Todo</button>
             <button class="pill-btn" onclick="filtrarCategoria('desayunos', this)">Desayunos</button>
             <button class="pill-btn" onclick="filtrarCategoria('cafes', this)">Cafés</button>
             <button class="pill-btn" onclick="filtrarCategoria('bebidas', this)">Bebidas</button>
@@ -81,6 +82,47 @@
             </div>
             <h2 id="tituloCategoria" class="section-title">Menú Completo</h2>
             <div id="gridProductos" class="grid-productos"></div>
+        </div>
+    </div>
+
+    <!-- MODAL CLIENTES -->
+    <div id="modalClientes" class="modal-overlay hidden">
+        <div class="modal-content" style="max-width: 750px;">
+            <div class="modal-header">
+                <h3>👥 Consultar Clientes Frecuentes</h3>
+                <button class="close-modal-btn" onclick="cerrarModalClientes()">&times;</button>
+            </div>
+            <p style="font-size: 0.9rem; color: #666; margin-bottom: 10px;">Base de datos de clientes registrados</p>
+            <div style="overflow-x: auto; max-height: 300px; margin-bottom: 15px;">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Teléfono</th>
+                            <th>Ciudad</th>
+                            <th>Pedidos</th>
+                            <th>Acción</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tablaClientesBody"></tbody>
+                </table>
+            </div>
+            <form id="formAgregarCliente" onsubmit="agregarCliente(event)" style="border-top: 1px solid #eee; padding-top: 12px;">
+                <h4>Registrar Nuevo Cliente</h4>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 8px;">
+                    <div class="form-group"><input type="text" id="cliNombre" placeholder="Nombre completo" required></div>
+                    <div class="form-group"><input type="text" id="cliTelefono" placeholder="Teléfono" required></div>
+                    <div class="form-group">
+                        <select id="cliCiudad">
+                            <option value="San Pedro Sula">San Pedro Sula</option>
+                            <option value="El Progreso">El Progreso</option>
+                        </select>
+                    </div>
+                    <div class="form-group"><input type="number" id="cliPedidos" placeholder="Pedidos realizados" value="1" min="1"></div>
+                </div>
+                <button type="submit" class="btn-confirm" style="width: 100%; margin-top: 5px;">Añadir Cliente</button>
+            </form>
         </div>
     </div>
 
@@ -121,6 +163,12 @@
             </div>
             <form id="checkoutForm" onsubmit="confirmarPedido(event)">
                 <div class="form-group">
+                    <label>Seleccionar Cliente Registrado:</label>
+                    <select id="selectClienteExistente" onchange="seleccionarClienteExistente()">
+                        <option value="">-- Seleccione un cliente o escriba abajo --</option>
+                    </select>
+                </div>
+                <div class="form-group">
                     <label>Nombre Completo:</label>
                     <input type="text" id="txtNombre" required placeholder="Ej. Juan Pérez">
                 </div>
@@ -159,6 +207,10 @@
                         <option value="Transferencia Bancaria">Transferencia Bancaria</option>
                     </select>
                 </div>
+                <div class="form-group">
+                    <label>Sugerencias o Comentarios del Pedido (Manual):</label>
+                    <textarea id="txtSugerenciaCliente" rows="2" placeholder="Escribe aquí tus indicaciones especiales..." style="width:100%; padding:8px; border:1px solid #ccc; border-radius:6px; font-family:inherit;"></textarea>
+                </div>
                 <div class="modal-actions">
                     <button type="button" class="btn-cancel" onclick="cancelarPedidoForm()">Cancelar Pedido</button>
                     <button type="submit" class="btn-confirm">Confirmar y Pagar</button>
@@ -183,6 +235,7 @@
                 <p><strong>Teléfono:</strong> <span id="facturaTelefono"></span></p>
                 <p><strong>Destino:</strong> <span id="facturaEntrega"></span></p>
                 <p><strong>Método de Pago:</strong> <span id="facturaPago"></span></p>
+                <p id="facturaSugerenciaBox" style="margin-top: 6px; font-style: italic; color: #555;"></p>
             </div>
             <div style="border-top: 1px solid #ccc; border-bottom: 1px solid #ccc; padding: 10px 0; margin-bottom: 15px;">
                 <strong>Detalle de productos:</strong>
@@ -231,7 +284,7 @@
     <div id="modalProveedores" class="modal-overlay hidden">
         <div class="modal-content" style="max-width: 700px;">
             <div class="modal-header">
-                <h3>Gestión de Proveedores</h3>
+                <h3>🚚 Gestión de Proveedores</h3>
                 <button class="close-modal-btn" onclick="cerrarProveedores()">&times;</button>
             </div>
             <div style="overflow-x: auto; max-height: 200px; margin-bottom: 15px;">
@@ -242,6 +295,7 @@
                             <th>Proveedor</th>
                             <th>Insumo</th>
                             <th>Pago</th>
+                            <th>Contacto</th>
                             <th>Acción</th>
                         </tr>
                     </thead>
