@@ -27,6 +27,8 @@
             <a href="javascript:void(0)" onclick="navegarA('bebidas')">Bebidas</a>
             <a href="javascript:void(0)" onclick="navegarA('postres')">Postres</a>
             <a href="javascript:void(0)" onclick="navegarA('ofertas')" class="nav-btn-offers">🏷️ Ofertas</a>
+            <a href="javascript:void(0)" onclick="abrirModalProveedores()" class="admin-btn">📦 Proveedores</a>
+            <a href="javascript:void(0)" onclick="abrirModalInventario()" class="admin-btn">📋 Inventario</a>
             <button class="cart-trigger-btn" onclick="abrirModalCompra()">🛒 Carrito (<span id="cartCount">0</span>)</button>
             <button class="admin-btn" onclick="pedirAccesoHistorial()">🔒 Acceso Historial</button>
         </nav>
@@ -74,6 +76,7 @@
                 <span>Trabaja con Nosotros</span>
                 <span>Arábica App</span>
                 <span>Contacto: contacto@cafeteriaarabica.hn</span>
+                <span onclick="abrirModalAutor()" style="cursor: pointer; text-decoration: underline;">Perfil del Autor</span>
             </div>
             <hr class="footer-divider">
             <div class="footer-social-dummy">
@@ -90,6 +93,7 @@
         <div class="product-grid" id="gridProductos"></div>
     </div>
 
+    <!-- MODAL CHECKOUT -->
     <div id="modalCheckout" class="modal-overlay hidden">
         <div class="checkout-card modal-animated">
             <div class="checkout-header">
@@ -152,6 +156,7 @@
         </div>
     </div>
 
+    <!-- MODAL FACTURA -->
     <div id="modalFactura" class="modal-overlay hidden">
         <div class="receipt-card modal-animated" id="areaFacturaImpresion">
             <div class="receipt-header">
@@ -192,11 +197,12 @@
         </div>
     </div>
 
+    <!-- MODAL HISTORIAL / CLIENTES / REPORTES -->
     <div id="modalHistorial" class="modal-overlay hidden">
         <div class="checkout-card modal-animated modal-large">
             <div class="checkout-header">
-                <h3>📊 Historial de Pedidos Realizados</h3>
-                <p>Registro de compras confirmadas almacenadas en la base de datos local</p>
+                <h3>📊 Historial, Clientes y Reportes de Ventas</h3>
+                <p>Consulta general de pedidos y reportes consolidados</p>
             </div>
 
             <div style="background: #27ae60; color: white; padding: 12px 20px; border-radius: 8px; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center; font-weight: bold; font-size: 1.1rem;">
@@ -222,7 +228,124 @@
             </div>
 
             <div class="checkout-actions" style="margin-top: 20px;">
-                <button type="button" class="btn-cancel" onclick="cerrarHistorial()">Cerrar Historial</button>
+                <button type="button" class="btn-print" style="flex:1;" onclick="window.print()">🖨️ Imprimir Reporte</button>
+                <button type="button" class="btn-cancel" style="flex:1;" onclick="cerrarHistorial()">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL PROVEEDORES -->
+    <div id="modalProveedores" class="modal-overlay hidden">
+        <div class="checkout-card modal-animated modal-large">
+            <div class="checkout-header">
+                <h3>📦 Gestión de Proveedores</h3>
+                <p>Listado, registro y formas de pago a proveedores</p>
+            </div>
+            <div style="margin-bottom: 15px;">
+                <button type="button" class="btn-confirm" style="width: auto; padding: 8px 15px;" onclick="registrarNuevoProveedor()">+ Registrar Proveedor</button>
+            </div>
+            <div class="table-responsive">
+                <table class="gridview-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre de Proveedor</th>
+                            <th>Producto Suministrado</th>
+                            <th>Forma de Pago</th>
+                            <th>Contacto</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tablaProveedoresBody">
+                        <tr>
+                            <td>01</td>
+                            <td>Distribuciones Café de Altura S.A.</td>
+                            <td>Granos de Café Arábica</td>
+                            <td>Transferencia</td>
+                            <td>+504 2233-4455</td>
+                        </tr>
+                        <tr>
+                            <td>02</td>
+                            <td>Lácteos del Norte</td>
+                            <td>Queso y Crema Fresca</td>
+                            <td>Efectivo</td>
+                            <td>+504 2665-7788</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="checkout-actions" style="margin-top: 20px;">
+                <button type="button" class="btn-cancel" onclick="cerrarProveedores()">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL INVENTARIO / PRODUCTOS -->
+    <div id="modalInventario" class="modal-overlay hidden">
+        <div class="checkout-card modal-animated modal-large">
+            <div class="checkout-header">
+                <h3>📋 Inventario y Productos</h3>
+                <p>Control de stock actual y registro de nuevos productos</p>
+            </div>
+            <div style="margin-bottom: 15px;">
+                <button type="button" class="btn-confirm" style="width: auto; padding: 8px 15px;" onclick="registrarNuevoProductoStock()">+ Registrar Producto</button>
+            </div>
+            <div class="table-responsive">
+                <table class="gridview-table">
+                    <thead>
+                        <tr>
+                            <th>Código</th>
+                            <th>Nombre del Producto</th>
+                            <th>Categoría</th>
+                            <th>Precio (L.)</th>
+                            <th>Stock Disponible</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tablaInventarioBody">
+                        <tr>
+                            <td>1</td>
+                            <td>Desayuno Típico Hondureño</td>
+                            <td>Desayunos</td>
+                            <td>L. 96.00</td>
+                            <td>45 porciones</td>
+                        </tr>
+                        <tr>
+                            <td>6</td>
+                            <td>Café Cappuccino</td>
+                            <td>Cafés</td>
+                            <td>L. 55.00</td>
+                            <td>120 tazas</td>
+                        </tr>
+                        <tr>
+                            <td>11</td>
+                            <td>Jugo Natural de Naranja</td>
+                            <td>Bebidas</td>
+                            <td>L. 45.00</td>
+                            <td>30 unidades</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="checkout-actions" style="margin-top: 20px;">
+                <button type="button" class="btn-cancel" onclick="cerrarInventario()">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL PERFIL DEL AUTOR -->
+    <div id="modalAutor" class="modal-overlay hidden">
+        <div class="checkout-card modal-animated" style="text-align: center;">
+            <div class="checkout-header">
+                <h3>👨‍💻 Perfil del Autor</h3>
+                <p>Información del sistema y desarrollo</p>
+            </div>
+            <div style="padding: 20px 0; font-size: 0.95rem; color: #4e342e;">
+                <p style="margin-bottom: 10px;"><strong>Sistema:</strong> Cafetería Arábica Web App</p>
+                <p style="margin-bottom: 10px;"><strong>Desarrollador:</strong> Carlos (Proyecto Integral)</p>
+                <p style="margin-bottom: 10px;"><strong>Tecnologías:</strong> HTML5, CSS3, JavaScript, Node.js & SQLite</p>
+                <p style="color: #e65100; font-weight: 600; margin-top: 15px;">¡Gracias por utilizar el programa!</p>
+            </div>
+            <div class="checkout-actions">
+                <button type="button" class="btn-cancel" onclick="cerrarModalAutor()">Cerrar</button>
             </div>
         </div>
     </div>
