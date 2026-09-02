@@ -25,9 +25,8 @@
             <div class="dropdown">
                 <a href="javascript:void(0)" class="dropbtn">👥 Clientes ▾</a>
                 <div class="dropdown-content">
-                    <a href="javascript:void(0)" onclick="navegarA('inicio')">Inicio / Bienvenida</a>
-                    <a href="javascript:void(0)" onclick="navegarA('ofertas')">🏷️ Ver Ofertas</a>
-                    <a href="javascript:void(0)" onclick="abrirModalCompra()">🛒 Ver Carrito</a>
+                    <a href="javascript:void(0)" onclick="abrirModalClientes()">👥 Consultar Clientes</a>
+                    <a href="javascript:void(0)" onclick="abrirModalComentarios()">💬 Comentarios</a>
                 </div>
             </div>
 
@@ -35,34 +34,27 @@
             <div class="dropdown">
                 <a href="javascript:void(0)" class="dropbtn">🍽️ Menú ▾</a>
                 <div class="dropdown-content">
+                    <a href="javascript:void(0)" onclick="navegarA('inicio')">Inicio / Bienvenida</a>
                     <a href="javascript:void(0)" onclick="navegarA('desayunos')">Desayunos</a>
                     <a href="javascript:void(0)" onclick="navegarA('cafes')">Cafés</a>
                     <a href="javascript:void(0)" onclick="navegarA('bebidas')">Bebidas</a>
                     <a href="javascript:void(0)" onclick="navegarA('postres')">Postres</a>
+                    <a href="javascript:void(0)" onclick="navegarA('ofertas')">🏷️ Ofertas</a>
                     <a href="javascript:void(0)" onclick="navegarA('todos')">Ver Todo el Menú</a>
                 </div>
             </div>
 
-            <!-- Menú Desplegable: Proveedores -->
-            <div class="dropdown">
-                <a href="javascript:void(0)" class="dropbtn">📦 Proveedores ▾</a>
-                <div class="dropdown-content">
-                    <a href="javascript:void(0)" onclick="abrirModalProveedores()">Gestionar Proveedores</a>
-                    <a href="javascript:void(0)" onclick="registrarNuevoProveedor()">+ Registrar Proveedor</a>
-                </div>
-            </div>
+            <!-- Menú Proveedores -->
+            <button class="cart-trigger-btn" onclick="abrirModalProveedores()">📦 Proveedores</button>
 
-            <!-- Menú Desplegable: Sistema -->
-            <div class="dropdown">
-                <a href="javascript:void(0)" class="dropbtn">⚙️ Sistema ▾</a>
-                <div class="dropdown-content">
-                    <a href="javascript:void(0)" onclick="abrirModalInventario()">📋 Inventario y Stock</a>
-                    <a href="javascript:void(0)" onclick="pedirAccesoHistorial()">📊 Historial de Ventas</a>
-                    <a href="javascript:void(0)" onclick="abrirModalAutor()">👨‍💻 Perfil del Autor</a>
-                </div>
-            </div>
+            <!-- Menú Inventario -->
+            <button class="cart-trigger-btn" onclick="abrirModalInventario()">📋 Inventario</button>
 
+            <!-- Botón Carrito -->
             <button class="cart-trigger-btn" onclick="abrirModalCompra()">🛒 Carrito (<span id="cartCount">0</span>)</button>
+
+            <!-- Historial -->
+            <button class="cart-trigger-btn" onclick="pedirAccesoHistorial()">📊 Acceso Historial</button>
         </nav>
     </header>
 
@@ -100,28 +92,22 @@
                 </div>
             </section>
         </main>
-
-        <footer class="site-footer">
-            <div class="footer-links-dummy">
-                <span>Menú</span>
-                <span>Quienes Somos</span>
-                <span>Trabaja con Nosotros</span>
-                <span>Arábica App</span>
-                <span>Contacto: contacto@cafeteriaarabica.hn</span>
-                <span onclick="abrirModalAutor()" style="cursor: pointer; text-decoration: underline;">Perfil del Autor</span>
-            </div>
-            <hr class="footer-divider">
-            <div class="footer-social-dummy">
-                <span class="social-icon">Facebook</span>
-                <span class="social-icon">Instagram</span>
-                <span class="social-icon">X</span>
-                <span class="social-icon">TikTok</span>
-            </div>
-        </footer>
     </div>
 
+    <!-- VISTA DE PRODUCTOS CON FILTROS EN PASTILLA -->
     <div id="vista-productos" class="vista-seccion container hidden animate-fade-in">
-        <h2 class="category-header" id="tituloCategoria">Menú</h2>
+        <h2 class="category-header" id="tituloCategoria">Menú Especial</h2>
+        
+        <!-- Filtros de Categoría tipo Botón/Pastilla -->
+        <div class="pill-filters">
+            <button class="pill-btn active" onclick="filtrarCategoria('todos', this)">Todo</button>
+            <button class="pill-btn" onclick="filtrarCategoria('desayunos', this)">Desayunos</button>
+            <button class="pill-btn" onclick="filtrarCategoria('cafes', this)">Cafés</button>
+            <button class="pill-btn" onclick="filtrarCategoria('bebidas', this)">Bebidas</button>
+            <button class="pill-btn" onclick="filtrarCategoria('postres', this)">Postres</button>
+            <button class="pill-btn" onclick="filtrarCategoria('ofertas', this)">Ofertas</button>
+        </div>
+
         <div class="product-grid" id="gridProductos"></div>
     </div>
 
@@ -152,17 +138,16 @@
                 <div id="grupoEnvio">
                     <div class="form-group">
                         <label for="ddlColonia">Colonia / Sector de Entrega:</label>
-                        <select id="ddlColonia" class="form-control" onchange="calcularTiempoEstimado()">
-                        </select>
+                        <select id="ddlColonia" class="form-control" onchange="calcularTiempoEstimado()"></select>
                     </div>
 
                     <div class="form-group">
-                        <label for="txtDireccion">Dirección Exacta (Calle / Num Casa):</label>
+                        <label for="txtDireccion">Dirección Exacta:</label>
                         <input type="text" id="txtDireccion" class="form-control" placeholder="Ej. Calle 3, Casa #102">
                     </div>
 
                     <div class="delivery-time-box">
-                        ⏱️ Tiempo estimado de entrega: <strong id="lblTiempoEstimado">30 - 40 min</strong>
+                        ⏱️ Tiempo estimado: <strong id="lblTiempoEstimado">30 - 40 min</strong>
                     </div>
                 </div>
 
@@ -190,78 +175,96 @@
 
     <!-- MODAL FACTURA -->
     <div id="modalFactura" class="modal-overlay hidden">
-        <div class="receipt-card modal-animated" id="areaFacturaImpresion">
+        <div class="receipt-card modal-animated">
             <div class="receipt-header">
                 <h2>☕ Cafetería Arábica</h2>
                 <p>RTN: 05011990123456</p>
-                <p style="font-size: 0.72rem; margin-top: 4px; line-height: 1.2;">
-                    📍 <strong>Sucursal El Progreso:</strong> Barrio El Centro, Calle Principal<br>
-                    📍 <strong>Sucursal San Pedro Sula:</strong> Barrio Guamilito, 5ta Avenida
-                </p>
                 <h3>COMPROBANTE DE PAGO</h3>
             </div>
-            
             <div class="receipt-body">
                 <p><strong>N° Pedido:</strong> <span id="facturaId">#000</span></p>
                 <p><strong>Fecha:</strong> <span id="facturaFecha"></span></p>
                 <p><strong>Cliente:</strong> <span id="facturaCliente"></span></p>
                 <p><strong>Entrega:</strong> <span id="facturaEntrega"></span></p>
-                <p><strong>Método Pago:</strong> <span id="facturaPago"></span></p>
-                
+                <p><strong>Pago:</strong> <span id="facturaPago"></span></p>
                 <hr class="receipt-divider">
                 <div id="facturaItems"></div>
                 <hr class="receipt-divider">
-
                 <div class="receipt-total">
                     <span>TOTAL:</span>
                     <span id="facturaTotal">L. 0.00</span>
                 </div>
             </div>
-
             <div class="receipt-footer">
-                <p>¡Gracias por tu compra!</p>
-                <p>Esperamos verte pronto.</p>
                 <div class="receipt-actions-row">
-                    <button type="button" class="btn-print" onclick="imprimirFactura()">🖨️ Imprimir Factura</button>
-                    <button type="button" class="btn-confirm" onclick="cerrarFactura()">Entendido / Cerrar</button>
+                    <button type="button" class="btn-print" onclick="window.print()">🖨️ Imprimir</button>
+                    <button type="button" class="btn-confirm" onclick="cerrarFactura()">Cerrar</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- MODAL HISTORIAL / CLIENTES / REPORTES -->
-    <div id="modalHistorial" class="modal-overlay hidden">
+    <!-- MODAL CONSULTAR CLIENTES -->
+    <div id="modalClientes" class="modal-overlay hidden">
         <div class="checkout-card modal-animated modal-large">
             <div class="checkout-header">
-                <h3>📊 Historial, Clientes y Reportes de Ventas</h3>
-                <p>Consulta general de pedidos y reportes consolidados</p>
+                <h3>👥 Consultar Clientes Frecuentes</h3>
+                <p>Base de datos de clientes registrados</p>
             </div>
-
-            <div style="background: #27ae60; color: white; padding: 12px 20px; border-radius: 8px; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center; font-weight: bold; font-size: 1.1rem;">
-                <span>💰 TOTAL DE INGRESOS ACUMULADOS:</span>
-                <span id="lblIngresosTotales">L. 0.00</span>
-            </div>
-            
             <div class="table-responsive">
                 <table class="gridview-table">
                     <thead>
-                        <tr>
-                            <th>N°</th>
-                            <th>Cliente</th>
-                            <th>Entrega / Lugar</th>
-                            <th>Pago</th>
-                            <th>Productos</th>
-                            <th>Total (L.)</th>
-                            <th>Acciones</th>
-                        </tr>
+                        <tr><th>ID</th><th>Nombre</th><th>Teléfono</th><th>Ciudad</th><th>Pedidos Realizados</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>1</td><td>Carlos Mendoza</td><td>+504 9988-7766</td><td>El Progreso</td><td>5 pedidos</td></tr>
+                        <tr><td>2</td><td>Ana Sofía Pineda</td><td>+504 3344-5566</td><td>San Pedro Sula</td><td>3 pedidos</td></tr>
+                        <tr><td>3</td><td>Mario Roberto Paz</td><td>+504 8877-6655</td><td>El Progreso</td><td>8 pedidos</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="checkout-actions" style="margin-top: 20px;">
+                <button type="button" class="btn-cancel" onclick="cerrarModalClientes()">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL COMENTARIOS -->
+    <div id="modalComentarios" class="modal-overlay hidden">
+        <div class="checkout-card modal-animated">
+            <div class="checkout-header">
+                <h3>💬 Comentarios y Sugerencias</h3>
+                <p>Opiniones recientes de nuestros clientes</p>
+            </div>
+            <div style="max-height: 250px; overflow-y: auto; margin-bottom: 15px; font-size: 0.9rem;">
+                <p style="padding: 8px; background: #f1f1f1; border-radius: 4px; margin-bottom: 8px;">⭐ <strong>Carlos M.:</strong> "¡El café cappuccino está excelente y llegó muy caliente!"</p>
+                <p style="padding: 8px; background: #f1f1f1; border-radius: 4px; margin-bottom: 8px;">⭐ <strong>Ana P.:</strong> "Las baleadas riquísimas, excelente servicio en El Progreso."</p>
+            </div>
+            <div class="checkout-actions">
+                <button type="button" class="btn-cancel" onclick="cerrarModalComentarios()">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL HISTORIAL -->
+    <div id="modalHistorial" class="modal-overlay hidden">
+        <div class="checkout-card modal-animated modal-large">
+            <div class="checkout-header">
+                <h3>📊 Historial de Ventas</h3>
+            </div>
+            <div style="background: #27ae60; color: white; padding: 10px; border-radius: 6px; margin-bottom: 15px; font-weight: bold;">
+                TOTAL INGRESOS: <span id="lblIngresosTotales">L. 0.00</span>
+            </div>
+            <div class="table-responsive">
+                <table class="gridview-table">
+                    <thead>
+                        <tr><th>N°</th><th>Cliente</th><th>Entrega</th><th>Pago</th><th>Productos</th><th>Total</th><th>Acción</th></tr>
                     </thead>
                     <tbody id="tablaPedidosBody"></tbody>
                 </table>
             </div>
-
             <div class="checkout-actions" style="margin-top: 20px;">
-                <button type="button" class="btn-print" style="flex:1;" onclick="window.print()">🖨️ Imprimir Reporte</button>
-                <button type="button" class="btn-cancel" style="flex:1;" onclick="cerrarHistorial()">Cerrar</button>
+                <button type="button" class="btn-cancel" onclick="cerrarHistorial()">Cerrar</button>
             </div>
         </div>
     </div>
@@ -271,37 +274,15 @@
         <div class="checkout-card modal-animated modal-large">
             <div class="checkout-header">
                 <h3>📦 Gestión de Proveedores</h3>
-                <p>Listado, registro y formas de pago a proveedores</p>
-            </div>
-            <div style="margin-bottom: 15px;">
-                <button type="button" class="btn-confirm" style="width: auto; padding: 8px 15px;" onclick="registrarNuevoProveedor()">+ Registrar Proveedor</button>
             </div>
             <div class="table-responsive">
                 <table class="gridview-table">
                     <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Nombre de Proveedor</th>
-                            <th>Producto Suministrado</th>
-                            <th>Forma de Pago</th>
-                            <th>Contacto</th>
-                        </tr>
+                        <tr><th>ID</th><th>Proveedor</th><th>Insumo</th><th>Pago</th><th>Contacto</th></tr>
                     </thead>
-                    <tbody id="tablaProveedoresBody">
-                        <tr>
-                            <td>01</td>
-                            <td>Distribuciones Café de Altura S.A.</td>
-                            <td>Granos de Café Arábica</td>
-                            <td>Transferencia</td>
-                            <td>+504 2233-4455</td>
-                        </tr>
-                        <tr>
-                            <td>02</td>
-                            <td>Lácteos del Norte</td>
-                            <td>Queso y Crema Fresca</td>
-                            <td>Efectivo</td>
-                            <td>+504 2665-7788</td>
-                        </tr>
+                    <tbody>
+                        <tr><td>01</td><td>Café de Altura S.A.</td><td>Granos de Café</td><td>Transferencia</td><td>+504 2233-4455</td></tr>
+                        <tr><td>02</td><td>Lácteos del Norte</td><td>Queso y Crema</td><td>Efectivo</td><td>+504 2665-7788</td></tr>
                     </tbody>
                 </table>
             </div>
@@ -311,49 +292,19 @@
         </div>
     </div>
 
-    <!-- MODAL INVENTARIO / PRODUCTOS -->
+    <!-- MODAL INVENTARIO & REPONER STOCK -->
     <div id="modalInventario" class="modal-overlay hidden">
         <div class="checkout-card modal-animated modal-large">
             <div class="checkout-header">
-                <h3>📋 Inventario y Productos</h3>
-                <p>Control de stock actual y registro de nuevos productos</p>
-            </div>
-            <div style="margin-bottom: 15px;">
-                <button type="button" class="btn-confirm" style="width: auto; padding: 8px 15px;" onclick="registrarNuevoProductoStock()">+ Registrar Producto</button>
+                <h3>📋 Inventario y Stock</h3>
             </div>
             <div class="table-responsive">
                 <table class="gridview-table">
                     <thead>
-                        <tr>
-                            <th>Código</th>
-                            <th>Nombre del Producto</th>
-                            <th>Categoría</th>
-                            <th>Precio (L.)</th>
-                            <th>Stock Disponible</th>
-                        </tr>
+                        <tr><th>Código</th><th>Producto</th><th>Categoría</th><th>Precio</th><th>Stock</th><th>Acción</th></tr>
                     </thead>
                     <tbody id="tablaInventarioBody">
-                        <tr>
-                            <td>1</td>
-                            <td>Desayuno Típico Hondureño</td>
-                            <td>Desayunos</td>
-                            <td>L. 96.00</td>
-                            <td>45 porciones</td>
-                        </tr>
-                        <tr>
-                            <td>6</td>
-                            <td>Café Cappuccino</td>
-                            <td>Cafés</td>
-                            <td>L. 55.00</td>
-                            <td>120 tazas</td>
-                        </tr>
-                        <tr>
-                            <td>11</td>
-                            <td>Jugo Natural de Naranja</td>
-                            <td>Bebidas</td>
-                            <td>L. 45.00</td>
-                            <td>30 unidades</td>
-                        </tr>
+                        <!-- Se llena por JS -->
                     </tbody>
                 </table>
             </div>
@@ -363,27 +314,35 @@
         </div>
     </div>
 
-    <!-- MODAL PERFIL DEL AUTOR -->
-    <div id="modalAutor" class="modal-overlay hidden">
-        <div class="checkout-card modal-animated" style="text-align: center;">
+    <!-- MODAL REPONER STOCK INDIVIDUAL -->
+    <div id="modalReponerStock" class="modal-overlay hidden">
+        <div class="checkout-card modal-animated">
             <div class="checkout-header">
-                <h3>👨‍💻 Perfil del Autor</h3>
-                <p>Información del sistema y desarrollo</p>
+                <h3>📦 Reponer Stock</h3>
+                <p id="reponerProductoTitulo">Producto (Stock actual: 0)</p>
             </div>
-            <div style="padding: 20px 0; font-size: 0.95rem; color: #4e342e;">
-                <p style="margin-bottom: 10px;"><strong>Sistema:</strong> Cafetería Arábica Web App</p>
-                <p style="margin-bottom: 10px;"><strong>Desarrollador:</strong> Carlos (Proyecto Integral)</p>
-                <p style="margin-bottom: 10px;"><strong>Tecnologías:</strong> HTML5, CSS3, JavaScript, Node.js & SQLite</p>
-                <p style="color: #e65100; font-weight: 600; margin-top: 15px;">¡Gracias por utilizar el programa!</p>
-            </div>
-            <div class="checkout-actions">
-                <button type="button" class="btn-cancel" onclick="cerrarModalAutor()">Cerrar</button>
-            </div>
+            <form onsubmit="confirmarReponerStock(event)">
+                <div class="form-group">
+                    <label>Cantidad a Reponer:</label>
+                    <input type="number" id="txtCantidadReponer" class="form-control" value="10" min="1" required>
+                </div>
+                <div class="form-group">
+                    <label>Proveedor:</label>
+                    <select id="ddlProveedorStock" class="form-control">
+                        <option value="Café de Altura S.A.">Café de Altura S.A.</option>
+                        <option value="Lácteos del Norte">Lácteos del Norte</option>
+                        <option value="Distribuidora de Mariscos">Distribuidora de Mariscos</option>
+                    </select>
+                </div>
+                <div class="checkout-actions">
+                    <button type="submit" class="btn-confirm">Confirmar</button>
+                    <button type="button" class="btn-cancel" onclick="cerrarModalReponer()">Cancelar</button>
+                </div>
+            </form>
         </div>
     </div>
 
-    <div id="toastNotification" class="toast hidden">✓ Producto agregado al carrito</div>
-
+    <div id="toastNotification" class="toast hidden">✓ Producto agregado</div>
     <script src="script.js"></script>
 </body>
 </html>
