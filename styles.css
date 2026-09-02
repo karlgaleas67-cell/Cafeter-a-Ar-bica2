@@ -69,30 +69,63 @@ body {
     gap: 15px;
 }
 
-.nav-links-right a {
+/* Estilos para los Menús Desplegables (Dropdowns) */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropbtn {
     color: var(--white);
     text-decoration: none;
     font-size: 0.9rem;
     font-weight: 400;
+    padding: 8px 10px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
     transition: color 0.3s;
 }
 
-.nav-links-right a:hover {
+.dropdown:hover .dropbtn {
     color: var(--secondary-color);
 }
 
-.nav-btn-highlight {
-    background: var(--accent-color);
-    padding: 6px 12px;
-    border-radius: 4px;
-    font-weight: 600 !important;
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: var(--white);
+    min-width: 200px;
+    box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+    z-index: 1050;
+    border-radius: 6px;
+    overflow: hidden;
+    top: 100%;
+    left: 0;
 }
 
-.nav-btn-offers {
-    background: #d35400;
-    padding: 6px 12px;
-    border-radius: 4px;
-    font-weight: 600 !important;
+.dropdown-content a {
+    color: var(--text-color) !important;
+    padding: 10px 15px;
+    text-decoration: none;
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: background 0.2s, color 0.2s;
+    border-bottom: 1px solid #f1f1f1;
+}
+
+.dropdown-content a:last-child {
+    border-bottom: none;
+}
+
+.dropdown-content a:hover {
+    background-color: var(--light-bg);
+    color: var(--accent-color) !important;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
 }
 
 .cart-trigger-btn, .admin-btn {
