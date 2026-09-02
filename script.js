@@ -66,6 +66,9 @@ document.addEventListener("DOMContentLoaded", () => {
     cerrarModalCompra();
     cerrarHistorial();
     cerrarFactura();
+    cerrarProveedores();
+    cerrarInventario();
+    cerrarModalAutor();
     actualizarColonias();
 });
 
@@ -136,13 +139,6 @@ function agregarAlCarrito(id) {
 
     const cartCount = document.getElementById("cartCount");
     if (cartCount) cartCount.innerText = carrito.length;
-
-    const cartBtn = document.querySelector(".cart-trigger-btn");
-    if (cartBtn) {
-        cartBtn.classList.remove("cart-bump");
-        void cartBtn.offsetWidth;
-        cartBtn.classList.add("cart-bump");
-    }
 
     mostrarToast(`✓ Agregado(s) ${cantidad}x ${prod.nombre}`);
 }
@@ -276,9 +272,8 @@ async function confirmarPedido(event) {
 
     const numPedidoStr = `#${String(contadorPedidos).padStart(3, '0')}`;
 
-    // 1. GUARDAR EN LA BASE DE DATOS SQLITE (RENDER)
     try {
-        const respuesta = await fetch('https://cafeteria-backend-2rjx.onrender.com/api/pedidos', {
+        await fetch('https://cafeteria-backend-2rjx.onrender.com/api/pedidos', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -290,20 +285,13 @@ async function confirmarPedido(event) {
                 total: totalFactura
             })
         });
-
-        if (respuesta.ok) {
-            console.log("¡Pedido guardado con éxito en Render!");
-        } else {
-            console.error("Error al guardar en el servidor");
-        }
     } catch (err) {
-        console.error("Servidor no disponible o desligado:", err);
+        console.error("Servidor no disponible:", err);
     }
 
     contadorPedidos++;
     localStorage.setItem("contadorPedidos", contadorPedidos.toString());
 
-    // 2. RENDERIZAR FACTURA EN PANTALLA
     const fId = document.getElementById("facturaId");
     if (fId) fId.innerText = numPedidoStr;
     
@@ -336,7 +324,6 @@ async function confirmarPedido(event) {
     const fTotal = document.getElementById("facturaTotal");
     if (fTotal) fTotal.innerText = `L. ${totalFactura.toFixed(2)}`;
 
-    // 3. VACIAR CARRITO Y MOSTRAR MODAL DE FACTURA
     carrito = [];
     const cartCount = document.getElementById("cartCount");
     if (cartCount) cartCount.innerText = "0";
@@ -357,7 +344,7 @@ function cerrarFactura() {
 
 function pedirAccesoHistorial() {
     const clave = prompt("Ingrese la contraseña de administrador para ver el historial:");
-    if (clave === "admin123" || clave === "messi") {
+    if (clave === "admin123" || clave === "Messi") {
         renderizarHistorial();
         const modal = document.getElementById("modalHistorial");
         if (modal) modal.classList.remove("hidden");
@@ -371,7 +358,6 @@ function cerrarHistorial() {
     if (modal) modal.classList.add("hidden");
 }
 
-// --- CONSULTAR HISTORIAL DESDE RENDER ---
 async function renderizarHistorial() {
     const tbody = document.getElementById("tablaPedidosBody");
     if (!tbody) return;
@@ -403,7 +389,6 @@ async function renderizarHistorial() {
                 </td>
             `;
             tbody.appendChild(tr);
-            
             numeroVisual++; 
         });
 
@@ -412,18 +397,16 @@ async function renderizarHistorial() {
             lblIngresos.innerText = `L. ${ingresosTotales.toFixed(2)}`;
         }
     } catch (error) {
-        console.error("Error al obtener los pedidos de la Base de Datos:", error);
+        console.error("Error al obtener los pedidos:", error);
     }
 }
 
-// --- FUNCIÓN PARA ELIMINAR UN PEDIDO EN RENDER ---
 async function eliminarPedido(idOriginalBaseDatos) {
     const confirmar = confirm("¿Estás seguro que deseas eliminar este pedido?");
     
     if (confirmar) {
         try {
             const idCodificado = encodeURIComponent(idOriginalBaseDatos);
-            
             const respuesta = await fetch(`https://cafeteria-backend-2rjx.onrender.com/api/pedidos/${idCodificado}`, {
                 method: 'DELETE'
             });
@@ -431,11 +414,83 @@ async function eliminarPedido(idOriginalBaseDatos) {
             if (respuesta.ok) {
                 renderizarHistorial();
             } else {
-                alert("Hubo un error al intentar eliminar el pedido del servidor.");
+                alert("Hubo un error al intentar eliminar el pedido.");
             }
         } catch (error) {
             console.error("Error eliminando el pedido:", error);
-            alert("Asegúrate de que el servidor en Render esté activo.");
         }
     }
+}
+
+// Funciones de Proveedores, Inventario y Autor
+function abrirModalProveedores() {
+    const modal = document.getElementById("modalProveedores");
+    if (modal) modal.classList.remove("hidden");
+}
+
+function cerrarProveedores() {
+    const modal = document.getElementById("modalProveedores");
+    if (modal) modal.classList.add("hidden");
+}
+
+function registrarNuevoProveedor() {
+    const nombre = prompt("Ingrese el nombre del nuevo proveedor:");
+    const producto = prompt("¿Qué producto suministra?");
+    const pago = prompt("Forma de pago (Efectivo / Transferencia):");
+    const contacto = prompt("Número de teléfono o contacto:");
+
+    if (nombre && producto) {
+        const tbody = document.getElementById("tablaProveedoresBody");
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+            <td>03</td>
+            <td>${nombre}</td>
+            <td>${producto}</td>
+            <td>${pago || 'Efectivo'}</td>
+            <td>${contacto || 'N/A'}</td>
+        `;
+        tbody.appendChild(tr);
+        mostrarToast("✓ Proveedor registrado con éxito");
+    }
+}
+
+function abrirModalInventario() {
+    const modal = document.getElementById("modalInventario");
+    if (modal) modal.classList.remove("hidden");
+}
+
+function cerrarInventario() {
+    const modal = document.getElementById("modalInventario");
+    if (modal) modal.classList.add("hidden");
+}
+
+function registrarNuevoProductoStock() {
+    const nombre = prompt("Nombre del nuevo producto:");
+    const categoria = prompt("Categoría (desayunos, cafes, bebidas, postres):");
+    const precio = prompt("Precio en Lempiras:");
+    const stock = prompt("Stock o cantidad disponible:");
+
+    if (nombre && precio) {
+        const tbody = document.getElementById("tablaInventarioBody");
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+            <td>99</td>
+            <td>${nombre}</td>
+            <td>${categoria || 'General'}</td>
+            <td>L. ${parseFloat(precio).toFixed(2)}</td>
+            <td>${stock || '10'} unidades</td>
+        `;
+        tbody.appendChild(tr);
+        mostrarToast("✓ Producto registrado en inventario");
+    }
+}
+
+function abrirModalAutor() {
+    const modal = document.getElementById("modalAutor");
+    if (modal) modal.classList.remove("hidden");
+}
+
+function cerrarModalAutor() {
+    const modal = document.getElementById("modalAutor");
+    if (modal) modal.classList.add("hidden");
 }
