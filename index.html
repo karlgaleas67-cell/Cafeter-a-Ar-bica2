@@ -44,16 +44,9 @@
                 </div>
             </div>
 
-            <!-- Menú Proveedores -->
             <button class="cart-trigger-btn" onclick="abrirModalProveedores()">📦 Proveedores</button>
-
-            <!-- Menú Inventario -->
             <button class="cart-trigger-btn" onclick="abrirModalInventario()">📋 Inventario</button>
-
-            <!-- Botón Carrito -->
             <button class="cart-trigger-btn" onclick="abrirModalCompra()">🛒 Carrito (<span id="cartCount">0</span>)</button>
-
-            <!-- Historial -->
             <button class="cart-trigger-btn" onclick="pedirAccesoHistorial()">📊 Acceso Historial</button>
         </nav>
     </header>
@@ -98,7 +91,6 @@
     <div id="vista-productos" class="vista-seccion container hidden animate-fade-in">
         <h2 class="category-header" id="tituloCategoria">Menú Especial</h2>
         
-        <!-- Filtros de Categoría tipo Botón/Pastilla -->
         <div class="pill-filters">
             <button class="pill-btn active" onclick="filtrarCategoria('todos', this)">Todo</button>
             <button class="pill-btn" onclick="filtrarCategoria('desayunos', this)">Desayunos</button>
@@ -292,7 +284,7 @@
         </div>
     </div>
 
-    <!-- MODAL INVENTARIO & REPONER STOCK -->
+    <!-- MODAL INVENTARIO -->
     <div id="modalInventario" class="modal-overlay hidden">
         <div class="checkout-card modal-animated modal-large">
             <div class="checkout-header">
@@ -303,9 +295,7 @@
                     <thead>
                         <tr><th>Código</th><th>Producto</th><th>Categoría</th><th>Precio</th><th>Stock</th><th>Acción</th></tr>
                     </thead>
-                    <tbody id="tablaInventarioBody">
-                        <!-- Se llena por JS -->
-                    </tbody>
+                    <tbody id="tablaInventarioBody"></tbody>
                 </table>
             </div>
             <div class="checkout-actions" style="margin-top: 20px;">
@@ -314,7 +304,7 @@
         </div>
     </div>
 
-    <!-- MODAL REPONER STOCK INDIVIDUAL -->
+    <!-- MODAL REPONER STOCK -->
     <div id="modalReponerStock" class="modal-overlay hidden">
         <div class="checkout-card modal-animated">
             <div class="checkout-header">
