@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cafetería Artesanal</title>
+    <title>Cafetería Artesanal - Aroma & Tradición</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
@@ -93,7 +93,7 @@
                 <button class="close-modal-btn" onclick="cerrarModalClientes()">&times;</button>
             </div>
             <p style="font-size: 0.9rem; color: #666; margin-bottom: 10px;">Base de datos de clientes registrados</p>
-            <div style="overflow-x: auto; max-height: 300px; margin-bottom: 15px;">
+            <div style="overflow-x: auto; max-height: 250px; margin-bottom: 15px;">
                 <table class="admin-table">
                     <thead>
                         <tr>
@@ -108,7 +108,7 @@
                     <tbody id="tablaClientesBody"></tbody>
                 </table>
             </div>
-            <form id="formAgregarCliente" onsubmit="agregarCliente(event)" style="border-top: 1px solid #eee; padding-top: 12px;">
+            <form id="formAgregarCliente" onsubmit="agregarCliente(event)" style="border-top: 1px solid #eee; paddingTop: 12px;">
                 <h4>Registrar Nuevo Cliente</h4>
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 8px;">
                     <div class="form-group"><input type="text" id="cliNombre" placeholder="Nombre completo" required></div>
@@ -251,7 +251,7 @@
         </div>
     </div>
 
-    <!-- MODAL HISTORIAL DE PEDIDOS (ADMIN) -->
+    <!-- MODAL HISTORIAL DE PEDIDOS -->
     <div id="modalHistorial" class="modal-overlay hidden">
         <div class="modal-content" style="max-width: 800px;">
             <div class="modal-header">
@@ -280,7 +280,7 @@
         </div>
     </div>
 
-    <!-- MODAL PROVEEDORES (ADMIN) -->
+    <!-- MODAL PROVEEDORES -->
     <div id="modalProveedores" class="modal-overlay hidden">
         <div class="modal-content" style="max-width: 700px;">
             <div class="modal-header">
@@ -321,7 +321,7 @@
         </div>
     </div>
 
-    <!-- MODAL INVENTARIO (ADMIN) -->
+    <!-- MODAL INVENTARIO -->
     <div id="modalInventario" class="modal-overlay hidden">
         <div class="modal-content" style="max-width: 700px;">
             <div class="modal-header">
