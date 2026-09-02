@@ -21,16 +21,48 @@
         </div>
 
         <nav class="nav-links-right">
-            <a href="javascript:void(0)" onclick="navegarA('inicio')">Inicio</a>
-            <a href="javascript:void(0)" onclick="navegarA('desayunos')" class="nav-btn-highlight">Desayunos</a>
-            <a href="javascript:void(0)" onclick="navegarA('cafes')">Cafés</a>
-            <a href="javascript:void(0)" onclick="navegarA('bebidas')">Bebidas</a>
-            <a href="javascript:void(0)" onclick="navegarA('postres')">Postres</a>
-            <a href="javascript:void(0)" onclick="navegarA('ofertas')" class="nav-btn-offers">🏷️ Ofertas</a>
-            <a href="javascript:void(0)" onclick="abrirModalProveedores()" class="admin-btn">📦 Proveedores</a>
-            <a href="javascript:void(0)" onclick="abrirModalInventario()" class="admin-btn">📋 Inventario</a>
+            <!-- Menú Desplegable: Clientes -->
+            <div class="dropdown">
+                <a href="javascript:void(0)" class="dropbtn">👥 Clientes ▾</a>
+                <div class="dropdown-content">
+                    <a href="javascript:void(0)" onclick="navegarA('inicio')">Inicio / Bienvenida</a>
+                    <a href="javascript:void(0)" onclick="navegarA('ofertas')">🏷️ Ver Ofertas</a>
+                    <a href="javascript:void(0)" onclick="abrirModalCompra()">🛒 Ver Carrito</a>
+                </div>
+            </div>
+
+            <!-- Menú Desplegable: Menú -->
+            <div class="dropdown">
+                <a href="javascript:void(0)" class="dropbtn">🍽️ Menú ▾</a>
+                <div class="dropdown-content">
+                    <a href="javascript:void(0)" onclick="navegarA('desayunos')">Desayunos</a>
+                    <a href="javascript:void(0)" onclick="navegarA('cafes')">Cafés</a>
+                    <a href="javascript:void(0)" onclick="navegarA('bebidas')">Bebidas</a>
+                    <a href="javascript:void(0)" onclick="navegarA('postres')">Postres</a>
+                    <a href="javascript:void(0)" onclick="navegarA('todos')">Ver Todo el Menú</a>
+                </div>
+            </div>
+
+            <!-- Menú Desplegable: Proveedores -->
+            <div class="dropdown">
+                <a href="javascript:void(0)" class="dropbtn">📦 Proveedores ▾</a>
+                <div class="dropdown-content">
+                    <a href="javascript:void(0)" onclick="abrirModalProveedores()">Gestionar Proveedores</a>
+                    <a href="javascript:void(0)" onclick="registrarNuevoProveedor()">+ Registrar Proveedor</a>
+                </div>
+            </div>
+
+            <!-- Menú Desplegable: Sistema -->
+            <div class="dropdown">
+                <a href="javascript:void(0)" class="dropbtn">⚙️ Sistema ▾</a>
+                <div class="dropdown-content">
+                    <a href="javascript:void(0)" onclick="abrirModalInventario()">📋 Inventario y Stock</a>
+                    <a href="javascript:void(0)" onclick="pedirAccesoHistorial()">📊 Historial de Ventas</a>
+                    <a href="javascript:void(0)" onclick="abrirModalAutor()">👨‍💻 Perfil del Autor</a>
+                </div>
+            </div>
+
             <button class="cart-trigger-btn" onclick="abrirModalCompra()">🛒 Carrito (<span id="cartCount">0</span>)</button>
-            <button class="admin-btn" onclick="pedirAccesoHistorial()">🔒 Acceso Historial</button>
         </nav>
     </header>
 
